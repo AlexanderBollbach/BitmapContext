@@ -22,6 +22,8 @@ extension Coordinate: Hashable {
 
 struct Color: Equatable {
     
+    // alpha always 1 for now
+    
     typealias ComponentType = UInt8
     
     let red: ComponentType
@@ -29,16 +31,19 @@ struct Color: Equatable {
     let blue: ComponentType
     let alpha: ComponentType
     
-    var sum: Int {
-        return Int(Int(red) + Int(green) + Int(blue) + Int(alpha))
+    var sumRGB: Int {
+        return Int(Int(red) + Int(green) + Int(blue))
     }
     
-    static var maxValue: Int {
-        return Int(ComponentType.max) * 4
+    static var maxRGBValue: Int {
+        return Int(ComponentType.max) * 3
     }
     
     static var red: Color {
         return Color(red: 255, green: 0, blue: 0, alpha: 255)
+    }
+    static var white: Color {
+        return Color(red: 255, green: 255, blue: 255, alpha: 255)
     }
 }
 

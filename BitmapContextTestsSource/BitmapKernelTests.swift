@@ -19,19 +19,52 @@ class BitmapKernelTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testAllColorsWhite() {
         
+        let context = allWhite_10x10_Bitmap_Fixture()
+        
+        context.forEachColor { color in
+            XCTAssert(color == Color.white)
+        }
+    }
+    
+    func testKernelGivesRightValue() {
+        
+        let context = allWhite_3x3_Bitmap_Fixture()
+        let kernel = BitmapKernel.threeByThree
+        
+        let kernelValue = kernel.getKernalValue(from: context.bitmap, at: Coordinate(x: 1, y: 1))
+        
+        XCTAssert(kernelValue == 1.0)
+        
+    }
+}
+
+
+// Fixtures
+extension BitmapKernelTests {
+    
+    func allWhite_10x10_Bitmap_Fixture() -> BitmapContext {
         
         let fakeBitmap = FakeBitmap(width: 10, height: 10)
         let bitmapContext = BitmapContext(bitmapTarget: fakeBitmap)
         
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        bitmapContext.forEachCoordinate { coord in
+            bitmapContext.set(color: Color.white, at: coord)
         }
+        
+        return bitmapContext
     }
     
+    func allWhite_3x3_Bitmap_Fixture() -> BitmapContext {
+        
+        let fakeBitmap = FakeBitmap(width: 3, height: 3)
+        let bitmapContext = BitmapContext(bitmapTarget: fakeBitmap)
+        
+        bitmapContext.forEachCoordinate { coord in
+            bitmapContext.set(color: Color.white, at: coord)
+        }
+        
+        return bitmapContext
+    }
 }

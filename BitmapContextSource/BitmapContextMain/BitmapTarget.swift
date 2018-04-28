@@ -34,13 +34,11 @@ class FakeBitmap: Bitmap {
     var fakeStorage: [Coordinate: Color] = [:]
     
     func set(color: Color, coordinate: Coordinate) {
-        
         fakeStorage[coordinate] = color
     }
     
     func getColor(at coordinate: Coordinate) -> Color {
-        
-        return Color.red
+        return fakeStorage[coordinate]!
     }
     
     func darkenPixel(coordinate: Coordinate, percent: Double) {}
