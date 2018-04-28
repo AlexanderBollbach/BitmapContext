@@ -36,7 +36,36 @@ class BitmapKernelTests: XCTestCase {
         let kernelValue = kernel.getKernalValue(from: context.bitmap, at: Coordinate(x: 1, y: 1))
         
         XCTAssert(kernelValue == 1.0)
+    }
+    
+    // Note: this is a scary test. a) you need to know a fair amount about the pixel units and amounts.  and b) it doues a lot of casting between Int and Double.  so i use numbers that I know will result in all integer intermediate calculations but still exercise (hopefully) the critical logic of this kernel function
+    func testWeightOnKernel1() {
         
+        let context = allWhite_3x3_Bitmap_Fixture()
+        
+        let kernel_Unweighted = BitmapKernel(
+            from: [
+                [ 1.0, 1.0, 1.0],
+                [ 1.0, 1.0, 1.0],
+                [ 1.0, 1.0, 1.0]
+            ]
+        )
+        
+        let kernel_Middle_Zero_Weighted = BitmapKernel(
+            from: [
+                [ 1.0, 1.0, 1.0],
+                [ 1.0, 0, 1.0],
+                [ 1.0, 1.0, 1.0]
+            ]
+        )
+        
+        
+        let unWeightedResult = kernel_Unweighted.getKernalValue(from: context.bitmap, at: Coordinate(x: 1, y: 1))
+        let weightedResult = kernel_Middle_Zero_Weighted.getKernalValue(from: context.bitmap, at: Coordinate(x: 1, y: 1))
+        
+        let delta = unWeightedResult - weightedResult
+        
+        XCTAssert(delta == 765)
     }
 }
 
