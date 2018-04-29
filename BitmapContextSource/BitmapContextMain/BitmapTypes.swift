@@ -26,6 +26,10 @@ struct Color: Equatable {
     
     typealias ComponentType = UInt8
     
+    var normalizedValue: Double {
+        return Double(sumRGB) / Double(Int(ComponentType.max) * 3)
+    }
+    
     let red: ComponentType
     let green: ComponentType
     let blue: ComponentType

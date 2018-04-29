@@ -1,89 +1,88 @@
-//
-//  BitmapKernel.swift
-//  bitmapTest
-//
-//  Created by Alexander Bollbach on 4/27/18.
-//  Copyright © 2018 Bollbach, Alexander. All rights reserved.
-//
-
-import Foundation
-
-struct BitmapKernel {
+ //
+ //  BitmapKernel.swift
+ //  bitmapTest
+ //
+ //  Created by Alexander Bollbach on 4/27/18.
+ //  Copyright © 2018 Bollbach, Alexander. All rights reserved.
+ //
+ 
+ import Foundation
+ 
+ struct SquareMatrix<T> {
     
-    private struct Entry {
-        let x: Int
-        let y: Int
-        let weight: Double
+    var entries: [[T]]
+    
+    var size: Int
+    
+    var numEntries: Int {
+        return size * size
     }
     
-    private let entries: [[Entry]]
-    
-    func getKernalValue(from bitmap: Bitmap, at coordinate: Coordinate) -> Double {
+    init?(with entries: [[T]]) {
         
-        let total = entries.reduce(0.0) { (result, matrixRow) in
-            
-            let rowTotal = matrixRow.reduce(0.0) { result, entry in
-                
-                if let coord = newCoordinate(from: coordinate, transformedBy: entry, in: bitmap) {
-                    return result + (Double(bitmap.getColor(at: coord).sumRGB) * entry.weight)
-                }
-                return result
-            }
-            
-            return result + rowTotal
-        }
-        
-        return total
-    }
-    
-    func normalizeValue(_ value: Int) -> Double {
-        
-        let maxKernelVal = Double(Color.maxRGBValue * entries.count)
-        return Double(value) / maxKernelVal
-    }
-    
-    private func newCoordinate(from coordinate: Coordinate, transformedBy entry: Entry, in bitmap: Bitmap) -> Coordinate? {
-        
-        let newCoordinate = Coordinate(x: coordinate.x + entry.x, y: coordinate.y + entry.y)
-        
-        if newCoordinate.x >= 0 && newCoordinate.x < bitmap.width && newCoordinate.y >= 0 && newCoordinate.y < bitmap.height {
-            return newCoordinate
-        }
-        
-        return nil
-    }
-}
-
-extension BitmapKernel {
-    
-    
-    init(from matrix: [[Double]]) {
-        
-        var entries = [[Entry]]()
-        
-        for iy in 0..<matrix.count {
-            
-            var rowEntries = [Entry]()
-            
-            let yEntry = iy - (matrix.count / 2)
-            
-            let row = matrix[iy]
-            
-            for ix in 0..<row.count {
-                
-                let xEntry = ix - (row.count / 2)
-                rowEntries.append(Entry(x: xEntry, y: yEntry, weight: row[ix]))
-            }
-            
-            entries.append(rowEntries)
+        if !SquareMatrix.isSquare(entries: entries) {
+            return nil
         }
         
         self.entries = entries
+        self.size = entries.count
     }
     
-    
-    static var threeByThree: BitmapKernel {
+    static func isSquare(entries: [[T]]) -> Bool {
         
+        return true
+    }
+ }
+ 
+ struct BitmapKernel {
+
+    let backingMatrix: SquareMatrix<Double>
+
+    func getKernalValue(from bitmap: Bitmap, at coordinate: Coordinate) -> Double {
+        
+        let mHalf = backingMatrix.size / 2
+        
+        var total = 0.0
+        
+        for row in backingMatrix.entries.enumerated() {
+            for col in row.element.enumerated() {
+                
+                let xOffset = col.offset - mHalf
+                let yOffset = row.offset - mHalf
+                
+                let weightForCoordinate = backingMatrix.entries[row.offset][col.offset]
+                
+                if let newCoord = newCoordinate(from: coordinate, transformedBy: Coordinate(x: xOffset, y: yOffset), in: bitmap) {
+                    
+                    let colorVal = bitmap.getColor(at: newCoord).normalizedValue
+                    
+                    let weightedVal = (colorVal * weightForCoordinate)
+                 
+                    total += weightedVal
+                }
+                
+            }
+        }
+        
+        return total / Double(backingMatrix.numEntries)
+    }
+ }
+ 
+ // ---- initializers
+ extension BitmapKernel {
+    
+    init?(from entries: [[Double]]) {
+        if let matrix = SquareMatrix<Double>.init(with: entries) {
+            self.backingMatrix = matrix
+            return
+        }
+        return nil
+    }
+ }
+ 
+ // ---- factories
+ extension BitmapKernel {
+    static var threeByThree: BitmapKernel? {
         return BitmapKernel(
             from: [
                 [ 1.0, 1.0, 1.0],
@@ -92,4 +91,18 @@ extension BitmapKernel {
             ]
         )
     }
-}
+ }
+ // ---- Utils
+ extension BitmapKernel {
+
+    private func newCoordinate(from coordinate: Coordinate, transformedBy kernelPoint: Coordinate, in bitmap: Bitmap) -> Coordinate? {
+        
+        let newCoordinate = Coordinate(x: coordinate.x + kernelPoint.x, y: coordinate.y + kernelPoint.y)
+        
+        if newCoordinate.x >= 0 && newCoordinate.x < bitmap.width && newCoordinate.y >= 0 && newCoordinate.y < bitmap.height {
+            return newCoordinate
+        }
+        
+        return nil
+    }
+ }

@@ -31,7 +31,7 @@ class BitmapKernelTests: XCTestCase {
     func testKernelGivesRightValue() {
         
         let context = allWhite_3x3_Bitmap_Fixture()
-        let kernel = BitmapKernel.threeByThree
+        guard let kernel = BitmapKernel.threeByThree else { XCTFail("failed to make kernel") ; return }
         
         let kernelValue = kernel.getKernalValue(from: context.bitmap, at: Coordinate(x: 1, y: 1))
         
@@ -43,21 +43,21 @@ class BitmapKernelTests: XCTestCase {
         
         let context = allWhite_3x3_Bitmap_Fixture()
         
-        let kernel_Unweighted = BitmapKernel(
+        guard let kernel_Unweighted = BitmapKernel(
             from: [
                 [ 1.0, 1.0, 1.0],
                 [ 1.0, 1.0, 1.0],
                 [ 1.0, 1.0, 1.0]
             ]
-        )
+            ) else { XCTFail("failed to make kernel") ; return }
         
-        let kernel_Middle_Zero_Weighted = BitmapKernel(
+        guard let kernel_Middle_Zero_Weighted = BitmapKernel(
             from: [
                 [ 1.0, 1.0, 1.0],
                 [ 1.0, 0, 1.0],
                 [ 1.0, 1.0, 1.0]
             ]
-        )
+            ) else { XCTFail("failed to make kernel") ; return }
         
         
         let unWeightedResult = kernel_Unweighted.getKernalValue(from: context.bitmap, at: Coordinate(x: 1, y: 1))
@@ -65,7 +65,10 @@ class BitmapKernelTests: XCTestCase {
         
         let delta = unWeightedResult - weightedResult
         
-        XCTAssert(delta == 765)
+        // delta should be 1 - 8/9 because the middle weight removes one full white pixel from the kernal multiplication
+        let expectedDelta = 1 - 8.0 / 9
+        
+        XCTAssert(delta == expectedDelta)
     }
 }
 

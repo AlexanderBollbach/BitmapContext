@@ -76,7 +76,7 @@ extension BitmapContext {
     
     func algo1() {
         
-        let kernel = BitmapKernel.threeByThree
+        guard let kernel = BitmapKernel.threeByThree else { return }
         
         for i in 0..<numberOfPixels {
             
