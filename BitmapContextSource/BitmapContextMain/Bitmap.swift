@@ -19,6 +19,28 @@ protocol Bitmap {
     
     func darkenPixel(coordinate: Coordinate, percent: Double)
     func brightenPixel(coordinate: Coordinate, percent: Double)
+    
+    func forEachCoordinate(f: (Coordinate) -> Void)
+    
+    func allWhite()
+}
+
+extension Bitmap {
+    
+    func forEachCoordinate(f: (Coordinate) -> Void) {
+        
+        for row in 0..<height {
+            for col in 0..<width {
+                f(Coordinate(x: col, y: row))
+            }
+        }
+    }
+    
+    func allWhite() {
+        forEachCoordinate { coord in
+            self.set(color: Color.white, coordinate: coord)
+        }
+    }
 }
 
 class FakeBitmap: Bitmap {

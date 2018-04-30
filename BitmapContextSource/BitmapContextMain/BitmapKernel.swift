@@ -1,47 +1,12 @@
- //
- //  BitmapKernel.swift
- //  bitmapTest
- //
- //  Created by Alexander Bollbach on 4/27/18.
- //  Copyright © 2018 Bollbach, Alexander. All rights reserved.
- //
- 
- import Foundation
- 
- struct SquareMatrix<T> {
-    
-    var entries: [[T]]
-    
-    var size: Int
-    
-    var numEntries: Int {
-        return size * size
-    }
-    
-    init?(with entries: [[T]]) {
-        
-        if !SquareMatrix.isSquare(entries: entries) {
-            return nil
-        }
-        
-        self.entries = entries
-        self.size = entries.count
-    }
-    
-    static func isSquare(entries: [[T]]) -> Bool {
-        
-        return true
-    }
- }
- 
- struct BitmapKernel {
+import Foundation
 
+struct BitmapKernel {
+    
     let backingMatrix: SquareMatrix<Double>
-
+    
     func getKernalValue(from bitmap: Bitmap, at coordinate: Coordinate) -> Double {
         
         let mHalf = backingMatrix.size / 2
-        
         var total = 0.0
         
         for row in backingMatrix.entries.enumerated() {
@@ -53,23 +18,19 @@
                 let weightForCoordinate = backingMatrix.entries[row.offset][col.offset]
                 
                 if let newCoord = newCoordinate(from: coordinate, transformedBy: Coordinate(x: xOffset, y: yOffset), in: bitmap) {
-                    
                     let colorVal = bitmap.getColor(at: newCoord).normalizedValue
-                    
                     let weightedVal = (colorVal * weightForCoordinate)
-                 
                     total += weightedVal
                 }
-                
             }
         }
         
         return total / Double(backingMatrix.numEntries)
     }
- }
- 
- // ---- initializers
- extension BitmapKernel {
+}
+
+// ---- initializers
+extension BitmapKernel {
     
     init?(from entries: [[Double]]) {
         if let matrix = SquareMatrix<Double>.init(with: entries) {
@@ -78,10 +39,10 @@
         }
         return nil
     }
- }
- 
- // ---- factories
- extension BitmapKernel {
+}
+
+// ---- factories
+extension BitmapKernel {
     static var threeByThree: BitmapKernel? {
         return BitmapKernel(
             from: [
@@ -91,10 +52,10 @@
             ]
         )
     }
- }
- // ---- Utils
- extension BitmapKernel {
-
+}
+// ---- Utils
+extension BitmapKernel {
+    
     private func newCoordinate(from coordinate: Coordinate, transformedBy kernelPoint: Coordinate, in bitmap: Bitmap) -> Coordinate? {
         
         let newCoordinate = Coordinate(x: coordinate.x + kernelPoint.x, y: coordinate.y + kernelPoint.y)
@@ -105,4 +66,4 @@
         
         return nil
     }
- }
+}

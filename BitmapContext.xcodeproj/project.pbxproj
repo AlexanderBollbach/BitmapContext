@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		29060B132094002600D2D04E /* BitmapKernel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29060B122094002600D2D04E /* BitmapKernel.swift */; };
-		291E72752092B0B1007689B1 /* BitmapContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E72742092B0B1007689B1 /* BitmapContext.swift */; };
-		291E727C2092C86E007689B1 /* BitmapTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E727B2092C86E007689B1 /* BitmapTarget.swift */; };
+		291E72752092B0B1007689B1 /* BitmapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E72742092B0B1007689B1 /* BitmapController.swift */; };
+		291E727C2092C86E007689B1 /* Bitmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E727B2092C86E007689B1 /* Bitmap.swift */; };
 		291E727E2092C8E2007689B1 /* BitmapTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E727D2092C8E2007689B1 /* BitmapTypes.swift */; };
 		296B643B209408D00045DA81 /* BitmapKernelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B643A209408D00045DA81 /* BitmapKernelTests.swift */; };
+		296B643E2096A1060045DA81 /* SquareMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B643D2096A1060045DA81 /* SquareMatrix.swift */; };
 		29FDF6AF2094078B00FD662A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29FDF6AE2094078B00FD662A /* Info.plist */; };
 		2F6E34CF208FEA42009486FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6E34CE208FEA42009486FD /* AppDelegate.swift */; };
-		2F6E34D1208FEA42009486FD /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6E34D0208FEA42009486FD /* DemoViewController.swift */; };
-		2F6E34E4208FEA43009486FD /* BitmapContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6E34E3208FEA43009486FD /* BitmapContextTests.swift */; };
+		2F6E34E4208FEA43009486FD /* BitmapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6E34E3208FEA43009486FD /* BitmapTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,17 +30,17 @@
 
 /* Begin PBXFileReference section */
 		29060B122094002600D2D04E /* BitmapKernel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapKernel.swift; sourceTree = "<group>"; };
-		291E72742092B0B1007689B1 /* BitmapContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapContext.swift; sourceTree = "<group>"; };
-		291E727B2092C86E007689B1 /* BitmapTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapTarget.swift; sourceTree = "<group>"; };
+		291E72742092B0B1007689B1 /* BitmapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapController.swift; sourceTree = "<group>"; };
+		291E727B2092C86E007689B1 /* Bitmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bitmap.swift; sourceTree = "<group>"; };
 		291E727D2092C8E2007689B1 /* BitmapTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapTypes.swift; sourceTree = "<group>"; };
 		296B643A209408D00045DA81 /* BitmapKernelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapKernelTests.swift; sourceTree = "<group>"; };
+		296B643D2096A1060045DA81 /* SquareMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareMatrix.swift; sourceTree = "<group>"; };
 		29FDF6AE2094078B00FD662A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F6E34CB208FEA42009486FD /* BitmapContext.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BitmapContext.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F6E34CE208FEA42009486FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2F6E34D0208FEA42009486FD /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 		2F6E34DA208FEA43009486FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F6E34DF208FEA43009486FD /* BitmapContextTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BitmapContextTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2F6E34E3208FEA43009486FD /* BitmapContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapContextTests.swift; sourceTree = "<group>"; };
+		2F6E34E3208FEA43009486FD /* BitmapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,24 +61,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		291E72782092C17F007689B1 /* ProjectResources */ = {
+		291E72782092C17F007689B1 /* host */ = {
 			isa = PBXGroup;
 			children = (
 				2F6E34CE208FEA42009486FD /* AppDelegate.swift */,
 				2F6E34DA208FEA43009486FD /* Info.plist */,
 			);
-			path = ProjectResources;
+			path = host;
 			sourceTree = "<group>";
 		};
 		291E727F2092C8F3007689B1 /* BitmapContextMain */ = {
 			isa = PBXGroup;
 			children = (
-				291E72742092B0B1007689B1 /* BitmapContext.swift */,
-				291E727B2092C86E007689B1 /* BitmapTarget.swift */,
+				296B643C2096A0FD0045DA81 /* Geometry */,
+				291E72742092B0B1007689B1 /* BitmapController.swift */,
+				291E727B2092C86E007689B1 /* Bitmap.swift */,
 				291E727D2092C8E2007689B1 /* BitmapTypes.swift */,
 				29060B122094002600D2D04E /* BitmapKernel.swift */,
 			);
 			path = BitmapContextMain;
+			sourceTree = "<group>";
+		};
+		296B643C2096A0FD0045DA81 /* Geometry */ = {
+			isa = PBXGroup;
+			children = (
+				296B643D2096A1060045DA81 /* SquareMatrix.swift */,
+			);
+			path = Geometry;
 			sourceTree = "<group>";
 		};
 		2F6E34C2208FEA42009486FD = {
@@ -102,9 +111,8 @@
 		2F6E34CD208FEA42009486FD /* BitmapContextSource */ = {
 			isa = PBXGroup;
 			children = (
+				291E72782092C17F007689B1 /* host */,
 				291E727F2092C8F3007689B1 /* BitmapContextMain */,
-				291E72782092C17F007689B1 /* ProjectResources */,
-				2F6E34D0208FEA42009486FD /* DemoViewController.swift */,
 			);
 			path = BitmapContextSource;
 			sourceTree = "<group>";
@@ -112,7 +120,7 @@
 		2F6E34E2208FEA43009486FD /* BitmapContextTestsSource */ = {
 			isa = PBXGroup;
 			children = (
-				2F6E34E3208FEA43009486FD /* BitmapContextTests.swift */,
+				2F6E34E3208FEA43009486FD /* BitmapTests.swift */,
 				296B643A209408D00045DA81 /* BitmapKernelTests.swift */,
 				29FDF6AE2094078B00FD662A /* Info.plist */,
 			);
@@ -218,12 +226,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F6E34D1208FEA42009486FD /* DemoViewController.swift in Sources */,
-				291E72752092B0B1007689B1 /* BitmapContext.swift in Sources */,
-				291E727C2092C86E007689B1 /* BitmapTarget.swift in Sources */,
+				291E72752092B0B1007689B1 /* BitmapController.swift in Sources */,
+				291E727C2092C86E007689B1 /* Bitmap.swift in Sources */,
 				29060B132094002600D2D04E /* BitmapKernel.swift in Sources */,
 				291E727E2092C8E2007689B1 /* BitmapTypes.swift in Sources */,
 				2F6E34CF208FEA42009486FD /* AppDelegate.swift in Sources */,
+				296B643E2096A1060045DA81 /* SquareMatrix.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,7 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F6E34E4208FEA43009486FD /* BitmapContextTests.swift in Sources */,
+				2F6E34E4208FEA43009486FD /* BitmapTests.swift in Sources */,
 				296B643B209408D00045DA81 /* BitmapKernelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -366,7 +374,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6UUR9483U2;
-				INFOPLIST_FILE = "$(SRCROOT)/BitmapContextSource/ProjectResources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/BitmapContextSource/host/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -383,7 +391,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6UUR9483U2;
-				INFOPLIST_FILE = "$(SRCROOT)/BitmapContextSource/ProjectResources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/BitmapContextSource/host/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -19,21 +19,14 @@ class BitmapKernelTests: XCTestCase {
         super.tearDown()
     }
     
-    func testAllColorsWhite() {
-        
-        let context = allWhite_10x10_Bitmap_Fixture()
-        
-        context.forEachColor { color in
-            XCTAssert(color == Color.white)
-        }
-    }
+
     
     func testKernelGivesRightValue() {
         
-        let context = allWhite_3x3_Bitmap_Fixture()
+        let bitmap = allWhite_3x3_Bitmap_Fixture()
         guard let kernel = BitmapKernel.threeByThree else { XCTFail("failed to make kernel") ; return }
         
-        let kernelValue = kernel.getKernalValue(from: context.bitmap, at: Coordinate(x: 1, y: 1))
+        let kernelValue = kernel.getKernalValue(from: bitmap, at: Coordinate(x: 1, y: 1))
         
         XCTAssert(kernelValue == 1.0)
     }
@@ -41,7 +34,7 @@ class BitmapKernelTests: XCTestCase {
     // Note: this is a scary test. a) you need to know a fair amount about the pixel units and amounts.  and b) it doues a lot of casting between Int and Double.  so i use numbers that I know will result in all integer intermediate calculations but still exercise (hopefully) the critical logic of this kernel function
     func testWeightOnKernel1() {
         
-        let context = allWhite_3x3_Bitmap_Fixture()
+        let bitmap = allWhite_3x3_Bitmap_Fixture()
         
         guard let kernel_Unweighted = BitmapKernel(
             from: [
@@ -60,8 +53,8 @@ class BitmapKernelTests: XCTestCase {
             ) else { XCTFail("failed to make kernel") ; return }
         
         
-        let unWeightedResult = kernel_Unweighted.getKernalValue(from: context.bitmap, at: Coordinate(x: 1, y: 1))
-        let weightedResult = kernel_Middle_Zero_Weighted.getKernalValue(from: context.bitmap, at: Coordinate(x: 1, y: 1))
+        let unWeightedResult = kernel_Unweighted.getKernalValue(from: bitmap, at: Coordinate(x: 1, y: 1))
+        let weightedResult = kernel_Middle_Zero_Weighted.getKernalValue(from: bitmap, at: Coordinate(x: 1, y: 1))
         
         let delta = unWeightedResult - weightedResult
         
@@ -74,29 +67,20 @@ class BitmapKernelTests: XCTestCase {
 
 
 // Fixtures
-extension BitmapKernelTests {
+extension XCTestCase {
     
-    func allWhite_10x10_Bitmap_Fixture() -> BitmapContext {
+    
+    func allWhite_10x10_Bitmap_Fixture() -> Bitmap {
         
-        let fakeBitmap = FakeBitmap(width: 10, height: 10)
-        let bitmapContext = BitmapContext(bitmapTarget: fakeBitmap)
-        
-        bitmapContext.forEachCoordinate { coord in
-            bitmapContext.set(color: Color.white, at: coord)
-        }
-        
-        return bitmapContext
+        let bitmap = FakeBitmap(width: 10, height: 10)
+        bitmap.allWhite()
+        return bitmap
     }
     
-    func allWhite_3x3_Bitmap_Fixture() -> BitmapContext {
+    func allWhite_3x3_Bitmap_Fixture() -> Bitmap {
         
-        let fakeBitmap = FakeBitmap(width: 3, height: 3)
-        let bitmapContext = BitmapContext(bitmapTarget: fakeBitmap)
-        
-        bitmapContext.forEachCoordinate { coord in
-            bitmapContext.set(color: Color.white, at: coord)
-        }
-        
-        return bitmapContext
+        let bitmap = FakeBitmap(width: 3, height: 3)
+        bitmap.allWhite()
+        return bitmap
     }
 }
