@@ -2,17 +2,7 @@ import XCTest
 @testable import BitmapContext
 
 class BitmapTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-    }
-    
-    override func tearDown() {
-        super.tearDown()
-    }
-    
 
-    
     func testSetsColorsRight() {
         
         let bitmap = FakeBitmap(width: 10, height: 10)

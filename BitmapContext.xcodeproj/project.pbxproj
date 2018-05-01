@@ -121,8 +121,8 @@
 			children = (
 				2F6E34E3208FEA43009486FD /* BitmapTests.swift */,
 				296B643A209408D00045DA81 /* KernelTests.swift */,
-				29FDF6AE2094078B00FD662A /* Info.plist */,
 				296B643F2096BC1E0045DA81 /* SquareMatrixTests.swift */,
+				29FDF6AE2094078B00FD662A /* Info.plist */,
 			);
 			path = BitmapContextTestsSource;
 			sourceTree = "<group>";
