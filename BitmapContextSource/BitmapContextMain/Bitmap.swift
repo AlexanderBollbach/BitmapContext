@@ -9,6 +9,7 @@
 import CoreGraphics
 import Foundation
 
+
 protocol Bitmap {
     
     var width: Int { get }
@@ -23,6 +24,8 @@ protocol Bitmap {
     func forEachCoordinate(f: (Coordinate) -> Void)
     
     func allWhite()
+    
+    func log()
 }
 
 extension Bitmap {
@@ -43,6 +46,25 @@ extension Bitmap {
     }
 }
 
+// algorithms
+extension Bitmap {
+    
+    func algo1() {
+        
+        guard let k = BitmapKernel.threeByThree else { fatalError() }
+        
+        log()
+        
+        forEachCoordinate { coord in
+
+            let value = k.getKernalValue(from: self, at: coord)
+
+            print(value)
+        }
+        
+    }
+}
+
 class FakeBitmap: Bitmap {
      
     let width: Int
@@ -51,6 +73,24 @@ class FakeBitmap: Bitmap {
     init(width: Int, height: Int) {
         self.width = width
         self.height = height
+    }
+    
+    func log() {
+        
+        var byX = fakeStorage.sorted { (d1, d2) in
+            
+            if d1.key.y != d2.key.y {
+                return d1.key.y > d2.key.y
+            } else {
+                return d1.key.x > d2.key.x
+            }
+        }
+       
+        for kv in byX {
+            
+            print("\(kv.key.x) \(kv.key.y)")
+            print("\(kv.value.red) \(kv.value.green) \(kv.value.blue) ")
+        }
     }
     
     var fakeStorage: [Coordinate: Color] = [:]
@@ -147,6 +187,29 @@ class CoreGraphicsBitmap: Bitmap {
             for i in 0...2 {
                 updateComponent(offset: i, bytes: byte, change: componentChange)
             }
+        }
+    }
+    
+    func logPixel(bytes: UnsafePointer<UInt32>) {
+        
+        bytes.withMemoryRebound(to: UInt8.self, capacity: 4) { byte in
+            let r = byte.advanced(by: 0).pointee
+            let g = byte.advanced(by: 1).pointee
+            let b = byte.advanced(by: 2).pointee
+            let a = byte.advanced(by: 3).pointee
+            
+            print("r: \(r)")
+            print("g: \(g)")
+            print("b: \(b)")
+            print("a: \(a)")
+        }
+    }
+    
+    func log() {
+        
+        forEachCoordinate { coord in
+            let advance = coord.x + (coord.y * width)
+            logPixel(bytes: self.bytes.advanced(by: advance))
         }
     }
 }

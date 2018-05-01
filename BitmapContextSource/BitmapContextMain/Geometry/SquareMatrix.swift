@@ -8,7 +8,10 @@
 
 import Foundation
 
+
 struct SquareMatrix<T> {
+    
+    let rowMajor = true // each element is a row, each sub element a column in a row
     
     var entries: [[T]]
     
@@ -29,6 +32,16 @@ struct SquareMatrix<T> {
     }
     
     static func isSquare(entries: [[T]]) -> Bool {
+        
+        let rowCount = entries.count
+     
+        // all columns count == rowCount
+        for col in entries {
+            if col.count != rowCount {
+                return false
+            }
+        }
+        
         return true
     }
 }

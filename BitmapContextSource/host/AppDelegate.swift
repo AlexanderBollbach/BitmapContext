@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 class DemoViewController: UIViewController {
     
     let liveView = LiveView(frame: .zero)
-    
     var bitmap: Bitmap!
     
     var fullScreenBitmap: Bitmap!
@@ -34,13 +33,12 @@ class DemoViewController: UIViewController {
     var mainSV: UIStackView!
     
     func makeButton(name: String) -> UIButton {
-        
         let button = UIButton()
         button.setTitle(name, for: .normal)
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -61,9 +59,7 @@ class DemoViewController: UIViewController {
         mainSV = UIStackView(arrangedSubviews: [sv, liveView])
         view.addSubview(mainSV)
         mainSV.axis = .vertical
-//        sv.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        
-        
+
         bitmap = FakeBitmap(width: 10, height: 10)
         
         fullScreenContext = CGContext(data: nil,
@@ -76,22 +72,16 @@ class DemoViewController: UIViewController {
         
         fullScreenBitmap = CoreGraphicsBitmap(context: fullScreenContext)
         
+        reset()
     }
     
     @objc func buttonTapped(sender: UIButton) {
-        
         switch sender.titleLabel?.text ?? "" {
-        case "tick":
-            print("tick")
-        case "reset":
-            reset()
-        case "add pixel":
-            addPixel()
-            
+        case "tick": tick()
+        case "reset": reset()
+        case "add pixel": addPixel()
         default: fatalError()
         }
-        
-        
         showOnScreen()
     }
     
@@ -103,6 +93,13 @@ class DemoViewController: UIViewController {
     func addPixel() {
         
         bitmap.set(color: Color.red, coordinate: Coordinate(x: bitmap.width / 2, y: bitmap.height / 2))
+    }
+    
+    func tick() {
+        
+        
+        bitmap.algo1()
+        
     }
     
     private func showOnScreen() {

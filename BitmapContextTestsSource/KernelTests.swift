@@ -9,7 +9,7 @@
 import XCTest
 @testable import BitmapContext
 
-class BitmapKernelTests: XCTestCase {
+class KernelTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -27,6 +27,17 @@ class BitmapKernelTests: XCTestCase {
         guard let kernel = BitmapKernel.threeByThree else { XCTFail("failed to make kernel") ; return }
         
         let kernelValue = kernel.getKernalValue(from: bitmap, at: Coordinate(x: 1, y: 1))
+        
+        XCTAssert(kernelValue == 1.0)
+    }
+    
+    
+    func testKernelExtendsBeyondEdgesUsesFullValue() {
+        
+        let bitmap = allWhite_3x3_Bitmap_Fixture()
+        guard let kernel = BitmapKernel.threeByThree else { XCTFail("failed to make kernel") ; return }
+        
+        let kernelValue = kernel.getKernalValue(from: bitmap, at: Coordinate(x: 0, y: 0))
         
         XCTAssert(kernelValue == 1.0)
     }

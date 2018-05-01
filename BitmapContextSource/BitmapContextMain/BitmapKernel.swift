@@ -2,7 +2,7 @@ import Foundation
 
 struct BitmapKernel {
     
-    let backingMatrix: SquareMatrix<Double>
+    private let backingMatrix: SquareMatrix<Double>
     
     func getKernalValue(from bitmap: Bitmap, at coordinate: Coordinate) -> Double {
         
@@ -21,6 +21,8 @@ struct BitmapKernel {
                     let colorVal = bitmap.getColor(at: newCoord).normalizedValue
                     let weightedVal = (colorVal * weightForCoordinate)
                     total += weightedVal
+                } else {
+                    total += 1.0 // if off edge treat it as full pixel??
                 }
             }
         }
