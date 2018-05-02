@@ -3,7 +3,7 @@ import UIKit
 extension UIColor {
     
     static func from(color: Color) -> UIColor {
-        return UIColor(red: CGFloat(color.red) / CGFloat(255), green: CGFloat(color.green) / CGFloat(255), blue: CGFloat(color.blue) / CGFloat(255), alpha: 1)
+        return UIColor(red: CGFloat(color.r), green: CGFloat(color.g), blue: CGFloat(color.b), alpha: CGFloat(color.a))
     }
 }
 
@@ -22,13 +22,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 class DemoViewController: UIViewController {
     
     let liveView = LiveView(frame: .zero)
+    
     var bitmap: Bitmap!
+
+    lazy var fullScreenContext: CGContext = {
+        
+        guard let context = CGContext(data: nil,
+                                      width: Int(view.bounds.size.width),
+                                      height: Int(view.bounds.size.height),
+                                      bitsPerComponent: 8,
+                                      bytesPerRow: Int(view.bounds.size.width) * 4,
+                                      space: CGColorSpaceCreateDeviceRGB(),
+                                      bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { fatalError() }
+        
+        return context
+    }()
     
-    var fullScreenBitmap: Bitmap!
-    var fullScreenContext: CGContext!
-    
-    let w = 20
-    let h = 20
+    let w = 10
+    let h = 10
     
     var mainSV: UIStackView!
     
@@ -62,17 +73,10 @@ class DemoViewController: UIViewController {
 
         bitmap = FakeBitmap(width: 10, height: 10)
         
-        fullScreenContext = CGContext(data: nil,
-                                      width: Int(view.bounds.size.width),
-                                      height: Int(view.bounds.size.height),
-                                      bitsPerComponent: 8,
-                                      bytesPerRow: Int(view.bounds.size.width) * 4,
-                                      space: CGColorSpaceCreateDeviceRGB(),
-                                      bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
         
-        fullScreenBitmap = CoreGraphicsBitmap(context: fullScreenContext)
-        
+
         reset()
+        showOnScreen()
     }
     
     @objc func buttonTapped(sender: UIButton) {
@@ -104,11 +108,12 @@ class DemoViewController: UIViewController {
     
     private func showOnScreen() {
         
+        // clear screen context
         let w = view.bounds.size.width
         let h = view.bounds.size.height
-        
         fullScreenContext.clear(CGRect(x: 0, y: 0, width: w, height: h))
         
+        // up scale
         let squareWidth = view.bounds.size.width / CGFloat(bitmap.width)
         let squareHeight = view.bounds.size.height / CGFloat(bitmap.height)
         
@@ -120,6 +125,7 @@ class DemoViewController: UIViewController {
             let c = UIColor.from(color: bitmap.getColor(at: coord))
             fullScreenContext.setFillColor(c.cgColor)
             
+            // draw big pixel
             fullScreenContext.fill(CGRect(x: CGFloat(xPos), y: CGFloat(yPos), width: squareWidth, height: squareHeight))
         }
         

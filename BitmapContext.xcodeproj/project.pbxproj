@@ -13,6 +13,11 @@
 		296B643B209408D00045DA81 /* KernelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B643A209408D00045DA81 /* KernelTests.swift */; };
 		296B643E2096A1060045DA81 /* SquareMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B643D2096A1060045DA81 /* SquareMatrix.swift */; };
 		296B64402096BC1E0045DA81 /* SquareMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B643F2096BC1E0045DA81 /* SquareMatrixTests.swift */; };
+		29959FDA20993B60005D1336 /* TestFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29959FD920993B60005D1336 /* TestFixtures.swift */; };
+		29959FE020993F07005D1336 /* FakeBitmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29959FDE20993E84005D1336 /* FakeBitmap.swift */; };
+		29959FE120993F0B005D1336 /* CoreGraphicsBitmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29959FDC20993E74005D1336 /* CoreGraphicsBitmap.swift */; };
+		29959FE4209944E7005D1336 /* CoreGraphicsBitmapPixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29959FE2209944BA005D1336 /* CoreGraphicsBitmapPixel.swift */; };
+		29959FE820994594005D1336 /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29959FE620994553005D1336 /* Pixel.swift */; };
 		29FDF6AF2094078B00FD662A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29FDF6AE2094078B00FD662A /* Info.plist */; };
 		2F6E34CF208FEA42009486FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6E34CE208FEA42009486FD /* AppDelegate.swift */; };
 		2F6E34E4208FEA43009486FD /* BitmapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6E34E3208FEA43009486FD /* BitmapTests.swift */; };
@@ -35,6 +40,11 @@
 		296B643A209408D00045DA81 /* KernelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KernelTests.swift; sourceTree = "<group>"; };
 		296B643D2096A1060045DA81 /* SquareMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareMatrix.swift; sourceTree = "<group>"; };
 		296B643F2096BC1E0045DA81 /* SquareMatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareMatrixTests.swift; sourceTree = "<group>"; };
+		29959FD920993B60005D1336 /* TestFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFixtures.swift; sourceTree = "<group>"; };
+		29959FDC20993E74005D1336 /* CoreGraphicsBitmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphicsBitmap.swift; sourceTree = "<group>"; };
+		29959FDE20993E84005D1336 /* FakeBitmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeBitmap.swift; sourceTree = "<group>"; };
+		29959FE2209944BA005D1336 /* CoreGraphicsBitmapPixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphicsBitmapPixel.swift; sourceTree = "<group>"; };
+		29959FE620994553005D1336 /* Pixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
 		29FDF6AE2094078B00FD662A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F6E34CB208FEA42009486FD /* BitmapContext.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BitmapContext.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F6E34CE208FEA42009486FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,10 +83,10 @@
 		291E727F2092C8F3007689B1 /* BitmapContextMain */ = {
 			isa = PBXGroup;
 			children = (
-				296B643C2096A0FD0045DA81 /* Geometry */,
-				291E727B2092C86E007689B1 /* Bitmap.swift */,
-				291E727D2092C8E2007689B1 /* BitmapTypes.swift */,
+				29959FE52099453C005D1336 /* Pixel */,
 				29060B122094002600D2D04E /* BitmapKernel.swift */,
+				29959FDB20993E55005D1336 /* bitmap */,
+				296B643C2096A0FD0045DA81 /* Geometry */,
 			);
 			path = BitmapContextMain;
 			sourceTree = "<group>";
@@ -87,6 +97,26 @@
 				296B643D2096A1060045DA81 /* SquareMatrix.swift */,
 			);
 			path = Geometry;
+			sourceTree = "<group>";
+		};
+		29959FDB20993E55005D1336 /* bitmap */ = {
+			isa = PBXGroup;
+			children = (
+				291E727D2092C8E2007689B1 /* BitmapTypes.swift */,
+				291E727B2092C86E007689B1 /* Bitmap.swift */,
+				29959FDC20993E74005D1336 /* CoreGraphicsBitmap.swift */,
+				29959FDE20993E84005D1336 /* FakeBitmap.swift */,
+			);
+			path = bitmap;
+			sourceTree = "<group>";
+		};
+		29959FE52099453C005D1336 /* Pixel */ = {
+			isa = PBXGroup;
+			children = (
+				29959FE620994553005D1336 /* Pixel.swift */,
+				29959FE2209944BA005D1336 /* CoreGraphicsBitmapPixel.swift */,
+			);
+			path = Pixel;
 			sourceTree = "<group>";
 		};
 		2F6E34C2208FEA42009486FD = {
@@ -123,6 +153,7 @@
 				296B643A209408D00045DA81 /* KernelTests.swift */,
 				296B643F2096BC1E0045DA81 /* SquareMatrixTests.swift */,
 				29FDF6AE2094078B00FD662A /* Info.plist */,
+				29959FD920993B60005D1336 /* TestFixtures.swift */,
 			);
 			path = BitmapContextTestsSource;
 			sourceTree = "<group>";
@@ -226,11 +257,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29959FE4209944E7005D1336 /* CoreGraphicsBitmapPixel.swift in Sources */,
 				291E727C2092C86E007689B1 /* Bitmap.swift in Sources */,
 				29060B132094002600D2D04E /* BitmapKernel.swift in Sources */,
 				291E727E2092C8E2007689B1 /* BitmapTypes.swift in Sources */,
+				29959FE820994594005D1336 /* Pixel.swift in Sources */,
+				29959FE020993F07005D1336 /* FakeBitmap.swift in Sources */,
 				2F6E34CF208FEA42009486FD /* AppDelegate.swift in Sources */,
 				296B643E2096A1060045DA81 /* SquareMatrix.swift in Sources */,
+				29959FE120993F0B005D1336 /* CoreGraphicsBitmap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +276,7 @@
 				2F6E34E4208FEA43009486FD /* BitmapTests.swift in Sources */,
 				296B64402096BC1E0045DA81 /* SquareMatrixTests.swift in Sources */,
 				296B643B209408D00045DA81 /* KernelTests.swift in Sources */,
+				29959FDA20993B60005D1336 /* TestFixtures.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

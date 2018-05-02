@@ -15,12 +15,14 @@ struct BitmapKernel {
                 let xOffset = col.offset - mHalf
                 let yOffset = row.offset - mHalf
                 
-                let weightForCoordinate = backingMatrix.entries[row.offset][col.offset]
+                let currentWeight = backingMatrix.entries[row.offset][col.offset]
                 
-                if let newCoord = newCoordinate(from: coordinate, transformedBy: Coordinate(x: xOffset, y: yOffset), in: bitmap) {
-                    let colorVal = bitmap.getColor(at: newCoord).normalizedValue
-                    let weightedVal = (colorVal * weightForCoordinate)
-                    total += weightedVal
+                if let newCoord = newCoordinate(from: coordinate,
+                                                transformedBy: Coordinate(x: xOffset, y: yOffset),
+                                                in: bitmap) {
+
+                    total += bitmap.getColor(at: newCoord).magnitude * currentWeight
+                    
                 } else {
                     total += 1.0 // if off edge treat it as full pixel??
                 }
