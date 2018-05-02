@@ -19,22 +19,22 @@ class CoreGraphicsBitmap: Bitmap {
     
     init(context: CGContext) {
         self.context = context
-        self.bytes = context.data!.assumingMemoryBound(to: UInt32.self)
+        bytes = context.data!.assumingMemoryBound(to: UInt32.self)
     }
     
-    func set(color: Color, coordinate: Coordinate) {
+    func set(color: BitmapColor, coordinate: BitmapCoordinate) {
         pixel(at: coordinate).color = color
     }
     
-    func getColor(at coordinate: Coordinate) -> Color {
+    func getColor(at coordinate: BitmapCoordinate) -> BitmapColor {
         return pixel(at: coordinate).color
     }
     
-    func darken(coordinate: Coordinate, percent: Double) {
+    func darken(coordinate: BitmapCoordinate, percent: Double) {
         pixel(at: coordinate).darken(by: percent)
     }
     
-    func brighten(coordinate: Coordinate, percent: Double) {
+    func brighten(coordinate: BitmapCoordinate, percent: Double) {
         pixel(at: coordinate).brighten(by: percent)
     }
 }
@@ -69,11 +69,11 @@ extension CoreGraphicsBitmap {
 // private
 extension CoreGraphicsBitmap {
 
-    private func getByteOffset(from coordinate: Coordinate) -> Int {
+    private func getByteOffset(from coordinate: BitmapCoordinate) -> Int {
         return coordinate.x + (coordinate.y * width)
     }
     
-    private func pixel(at coordinate: Coordinate) -> BitmapPixel {
+    private func pixel(at coordinate: BitmapCoordinate) -> BitmapPixel {
         return CoreGraphicsBitmapPixel(memory: bytes.advanced(by: getByteOffset(from: coordinate)))
     }
 }

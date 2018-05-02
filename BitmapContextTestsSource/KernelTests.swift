@@ -8,12 +8,10 @@ class KernelTests: XCTestCase {
         let bitmap = allWhite_3x3_Bitmap_Fixture()
         guard let kernel = BitmapKernel.threeByThree else { XCTFail("failed to make kernel") ; return }
         
-        let kernelValue = kernel.getKernalValue(from: bitmap, at: Coordinate(x: 1, y: 1))
+        let kernelValue = kernel.getKernalValue(from: bitmap, at: BitmapCoordinate(x: 1, y: 1))
         
         XCTAssert(kernelValue == 1.0)
     }
-    
-    
     
     // Note: this is a scary test. a) you need to know a fair amount about the pixel units and amounts.  and b) it doues a lot of casting between Int and Double.  so i use numbers that I know will result in all integer intermediate calculations but still exercise (hopefully) the critical logic of this kernel function
     func testSingle0WeightDelta() {
@@ -37,8 +35,8 @@ class KernelTests: XCTestCase {
             ) else { XCTFail("failed to make kernel") ; return }
         
         
-        let unWeightedResult = kernel_Unweighted.getKernalValue(from: bitmap, at: Coordinate(x: 1, y: 1))
-        let weightedResult = kernel_Middle_Zero_Weighted.getKernalValue(from: bitmap, at: Coordinate(x: 1, y: 1))
+        let unWeightedResult = kernel_Unweighted.getKernalValue(from: bitmap, at: BitmapCoordinate(x: 1, y: 1))
+        let weightedResult = kernel_Middle_Zero_Weighted.getKernalValue(from: bitmap, at: BitmapCoordinate(x: 1, y: 1))
         
         let delta = unWeightedResult - weightedResult
         
@@ -62,11 +60,11 @@ extension KernelTests {
                 [ 1.0, 1.0, 1.0]
             ]) else { XCTFail("failed to make kernel") ; return }
         
-        var kernelValue = kernel.getKernalValue(from: bitmap, at: Coordinate(x: 0, y: 0))
+        var kernelValue = kernel.getKernalValue(from: bitmap, at: BitmapCoordinate(x: 0, y: 0))
         
         XCTAssert(kernelValue == 1.0)
         
-        let topRightCoord = Coordinate(x: bitmap.width - 1, y: bitmap.height - 1)
+        let topRightCoord = BitmapCoordinate(x: bitmap.width - 1, y: bitmap.height - 1)
         kernelValue = kernel.getKernalValue(from: bitmap, at: topRightCoord)
         
         XCTAssert(kernelValue == 1.0)
@@ -103,7 +101,7 @@ extension KernelTests {
                 [ 1.0, 1.0, 1.0]
             ]) else { XCTFail("failed to make kernel") ; return }
         
-        let kernelValue = kernel.getKernalValue(from: bitmap, at: Coordinate(x: 0, y: 0))
+        let kernelValue = kernel.getKernalValue(from: bitmap, at: BitmapCoordinate(x: 0, y: 0))
         
         XCTAssert(kernelValue == 1.0)
     }

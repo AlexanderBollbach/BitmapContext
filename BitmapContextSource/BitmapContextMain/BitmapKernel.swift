@@ -4,7 +4,7 @@ struct BitmapKernel {
     
     private let backingMatrix: SquareMatrix<Double>
     
-    func getKernalValue(from bitmap: Bitmap, at coordinate: Coordinate) -> Double {
+    func getKernalValue(from bitmap: Bitmap, at coordinate: BitmapCoordinate) -> Double {
         
         let mHalf = backingMatrix.size / 2
         var total = 0.0
@@ -17,15 +17,11 @@ struct BitmapKernel {
                 
                 let currentWeight = backingMatrix.entries[row.offset][col.offset]
                 
-                if let newCoord = newCoordinate(from: coordinate,
-                                                transformedBy: Coordinate(x: xOffset, y: yOffset),
-                                                in: bitmap) {
-
-                    total += bitmap.getColor(at: newCoord).magnitude * currentWeight
-                    
-                } else {
-                    total += 1.0 // if off edge treat it as full pixel??
-                }
+                let newCoord = newCoordinate(from: coordinate,
+                                             transformedBy: BitmapCoordinate(x: xOffset, y: yOffset),
+                                             in: bitmap)
+                
+                total += bitmap.getColor(at: newCoord).rgbMagnitude * currentWeight
             }
         }
         
@@ -60,14 +56,26 @@ extension BitmapKernel {
 // ---- Utils
 extension BitmapKernel {
     
-    private func newCoordinate(from coordinate: Coordinate, transformedBy kernelPoint: Coordinate, in bitmap: Bitmap) -> Coordinate? {
+    private func newCoordinate(from coordinate: BitmapCoordinate, transformedBy kernelPoint: BitmapCoordinate, in bitmap: Bitmap) -> BitmapCoordinate {
         
-        let newCoordinate = Coordinate(x: coordinate.x + kernelPoint.x, y: coordinate.y + kernelPoint.y)
+        var newCoordinate = BitmapCoordinate(x: coordinate.x + kernelPoint.x, y: coordinate.y + kernelPoint.y)
         
-        if newCoordinate.x >= 0 && newCoordinate.x < bitmap.width && newCoordinate.y >= 0 && newCoordinate.y < bitmap.height {
-            return newCoordinate
+        if newCoordinate.x < 0 {
+            newCoordinate.x = 0
         }
         
-        return nil
+        if newCoordinate.x >= bitmap.width {
+            newCoordinate.x = bitmap.width - 1
+        }
+        
+        if newCoordinate.y < 0 {
+            newCoordinate.y = 0
+        }
+        
+        if newCoordinate.y >= bitmap.height {
+            newCoordinate.y = bitmap.height - 1
+        }
+        
+        return newCoordinate
     }
 }

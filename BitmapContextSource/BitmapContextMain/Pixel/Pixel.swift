@@ -10,7 +10,7 @@ import Foundation
 
 protocol BitmapPixel: class {
  
-    var color: Color { get set }
+    var color: BitmapColor { get set }
     
     func darken(by percent: Double)
     func brighten(by percent: Double)

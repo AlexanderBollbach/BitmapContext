@@ -25,9 +25,9 @@ class CoreGraphicsBitmapPixel: BitmapPixel {
         }
     }
     
-    var color: Color {
+    var color: BitmapColor {
         get {
-            return Color(
+            return BitmapColor(
                 r: Double(rByte.pointee) / 255,
                 g: Double(gByte.pointee) / 255,
                 b: Double(bByte.pointee) / 255,

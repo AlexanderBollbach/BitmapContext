@@ -2,7 +2,7 @@ import UIKit
 
 extension UIColor {
     
-    static func from(color: Color) -> UIColor {
+    static func from(color: BitmapColor) -> UIColor {
         return UIColor(red: CGFloat(color.r), green: CGFloat(color.g), blue: CGFloat(color.b), alpha: CGFloat(color.a))
     }
 }
@@ -38,9 +38,6 @@ class DemoViewController: UIViewController {
         return context
     }()
     
-    let w = 10
-    let h = 10
-    
     var mainSV: UIStackView!
     
     func makeButton(name: String) -> UIButton {
@@ -60,7 +57,9 @@ class DemoViewController: UIViewController {
             arrangedSubviews: [
                 makeButton(name: "tick"),
                 makeButton(name: "reset"),
-                makeButton(name: "add pixel")
+                makeButton(name: "add pixel"),
+                makeButton(name: "incr all"),
+                makeButton(name: "decr all")
             ]
         )
         sv.distribution = .fillEqually
@@ -71,12 +70,17 @@ class DemoViewController: UIViewController {
         view.addSubview(mainSV)
         mainSV.axis = .vertical
 
-        bitmap = FakeBitmap(width: 10, height: 10)
-        
+        bitmap = FakeBitmap(width: 25, height: 25)
         
 
         reset()
         showOnScreen()
+        
+        Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { t in
+            
+            self.tick()
+            self.showOnScreen()
+        }
     }
     
     @objc func buttonTapped(sender: UIButton) {
@@ -84,26 +88,39 @@ class DemoViewController: UIViewController {
         case "tick": tick()
         case "reset": reset()
         case "add pixel": addPixel()
+        case "incr all": incrAll()
+        case "decr all": decrAll()
         default: fatalError()
         }
         showOnScreen()
     }
     
     func reset() {
-        
-        bitmap.allWhite()
+        bitmap.allBlack()
     }
     
     func addPixel() {
-        
-        bitmap.set(color: Color.red, coordinate: Coordinate(x: bitmap.width / 2, y: bitmap.height / 2))
+        bitmap.set(color: BitmapColor.white, coordinate: BitmapCoordinate(x: bitmap.width / 2, y: bitmap.height / 2))
+        bitmap.set(color: BitmapColor.white, coordinate: BitmapCoordinate(x: (bitmap.width / 2) + 1, y: (bitmap.height / 2)))
+        bitmap.set(color: BitmapColor.white, coordinate: BitmapCoordinate(x: (bitmap.width / 2) - 1, y: (bitmap.height / 2)))
     }
     
     func tick() {
-        
-        
         bitmap.algo1()
+    }
+    
+    func incrAll() {
         
+        bitmap.forEachCoordinate { c in
+            bitmap.brighten(coordinate: c, percent: 0.1)
+        }
+    }
+    
+    func decrAll() {
+        
+        bitmap.forEachCoordinate { c in
+            bitmap.darken(coordinate: c, percent: 0.1)
+        }
     }
     
     private func showOnScreen() {

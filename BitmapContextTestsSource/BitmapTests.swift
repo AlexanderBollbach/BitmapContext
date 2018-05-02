@@ -8,12 +8,12 @@ class BitmapTests: XCTestCase {
         let bitmap = FakeBitmap(width: 10, height: 10)
         
         bitmap.forEachCoordinate { coord in
-            bitmap.set(color: Color.red, coordinate: coord)
+            bitmap.set(color: BitmapColor.red, coordinate: coord)
         }
         
         bitmap.forEachCoordinate(f: { coord in
             let color = bitmap.getColor(at: coord)
-            XCTAssert(color == Color.red)
+            XCTAssert(color == BitmapColor.red)
         })
     }
     
@@ -24,7 +24,7 @@ class BitmapTests: XCTestCase {
         bitmap.forEachCoordinate(f: { coord in
             
             let color = bitmap.getColor(at: coord)
-            XCTAssert(color == Color.white)
+            XCTAssert(color == BitmapColor.white)
         })
         
     }

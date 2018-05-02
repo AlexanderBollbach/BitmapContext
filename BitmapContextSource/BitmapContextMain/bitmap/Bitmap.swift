@@ -15,13 +15,13 @@ protocol Bitmap {
     var width: Int { get }
     var height: Int { get }
     
-    func set(color: Color, coordinate: Coordinate)
-    func getColor(at coordinate: Coordinate) -> Color
+    func set(color: BitmapColor, coordinate: BitmapCoordinate)
+    func getColor(at coordinate: BitmapCoordinate) -> BitmapColor
     
-    func darken(coordinate: Coordinate, percent: Double)
-    func brighten(coordinate: Coordinate, percent: Double)
+    func darken(coordinate: BitmapCoordinate, percent: Double)
+    func brighten(coordinate: BitmapCoordinate, percent: Double)
     
-    func forEachCoordinate(f: (Coordinate) -> Void)
+    func forEachCoordinate(f: (BitmapCoordinate) -> Void)
     
     func allWhite()
     
@@ -30,18 +30,23 @@ protocol Bitmap {
 
 extension Bitmap {
     
-    func forEachCoordinate(f: (Coordinate) -> Void) {
+    func forEachCoordinate(f: (BitmapCoordinate) -> Void) {
         
         for row in 0..<height {
             for col in 0..<width {
-                f(Coordinate(x: col, y: row))
+                f(BitmapCoordinate(x: col, y: row))
             }
         }
     }
     
     func allWhite() {
         forEachCoordinate { coord in
-            self.set(color: Color.white, coordinate: coord)
+            self.set(color: BitmapColor.white, coordinate: coord)
+        }
+    }
+    func allBlack() {
+        forEachCoordinate { coord in
+            self.set(color: BitmapColor.black, coordinate: coord)
         }
     }
 }
@@ -58,8 +63,8 @@ extension Bitmap {
 
             let value = k.getKernalValue(from: self, at: coord)
             
-            if value > 0.5 {
-                self.darken(coordinate: coord, percent: 0.1)
+            if value > 0.3 {
+                self.brighten(coordinate: coord, percent: 0.1)
             }
 
             print(value)
